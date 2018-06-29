@@ -1,8 +1,10 @@
 
 package com.hi.scsv.forms;
 
-import com.hi.scsv.services.AnimalServices;
-import com.hi.scsv.services.VegetableServices;
+import com.hi.scsv.dao.ExportDAO;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainForm extends javax.swing.JFrame {
 
@@ -28,7 +30,8 @@ public class MainForm extends javax.swing.JFrame {
         mnu_Cad = new javax.swing.JMenu();
         mnu_Cad_Animais = new javax.swing.JMenuItem();
         mnu_Cad_Vegetais = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mnu_Exp = new javax.swing.JMenu();
+        mnu_Exp_Comp = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SCSV - Sistema para Cadastro de Seres Vivos");
@@ -56,8 +59,18 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuBar1.add(mnu_Cad);
 
-        jMenu2.setText("Exportar");
-        jMenuBar1.add(jMenu2);
+        mnu_Exp.setText("Exportação");
+
+        mnu_Exp_Comp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        mnu_Exp_Comp.setText("Completa (txt)");
+        mnu_Exp_Comp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnu_Exp_CompActionPerformed(evt);
+            }
+        });
+        mnu_Exp.add(mnu_Exp_Comp);
+
+        jMenuBar1.add(mnu_Exp);
 
         setJMenuBar(jMenuBar1);
 
@@ -91,6 +104,14 @@ public class MainForm extends javax.swing.JFrame {
         animalForm.setVisible(false);
         vegetableForm.setVisible(true);
     }//GEN-LAST:event_mnu_Cad_VegetaisActionPerformed
+
+    private void mnu_Exp_CompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnu_Exp_CompActionPerformed
+        try {
+            new ExportDAO().exportTxt();
+        } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mnu_Exp_CompActionPerformed
 
 
     public static void main(String args[]) {
@@ -133,11 +154,12 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JDesktopPane main_pane;
     private javax.swing.JMenu mnu_Cad;
     private javax.swing.JMenuItem mnu_Cad_Animais;
     private javax.swing.JMenuItem mnu_Cad_Vegetais;
+    private javax.swing.JMenu mnu_Exp;
+    private javax.swing.JMenuItem mnu_Exp_Comp;
     // End of variables declaration//GEN-END:variables
 }
